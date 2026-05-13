@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Distributionally Robust Stochastic gatekeeper (DRS-gatekeeper) is a sampling-based safety filter with probabilistic safety guarantees under uncertainty and distribution shift.">
+  <meta name="keywords"
+        content="DRS-gatekeeper, distributionally robust control, stochastic safety filter, Wasserstein ambiguity set, nonlinear systems">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Distributionally Robust Safety Under Arbitrary Uncertainties: A Safety Filtering Approach</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['$$', '$$']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script>
+    window.addEventListener('load', function() {
+      if (window.MathJax) {
+        MathJax.contentDocument = document;
+        MathJax.typesetPromise().catch(err => console.log(err));
+      }
+    });
+  </script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="#overview">Overview</a>
+      <a class="navbar-item" href="#features">Key Features</a>
+      <a class="navbar-item" href="#method">Method</a>
+      <a class="navbar-item" href="#environments">Environments</a>
+      <a class="navbar-item" href="#videos">Videos</a>
+      <a class="navbar-item" href="#code">Code</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Distributionally Robust Safety Under Arbitrary Uncertainties:  A Safety Filtering Approach</h1>
+          <!-- <h2 class="subtitle is-4">Sampling-based probabilistic safety for nonlinear systems under uncertainty and distribution shift</h2> -->
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><a href="https://dcherenson.github.io/">Daniel Cherenson*</a>, <a href="https://joonlee16.github.io/">Haejoon Lee*</a>, <a href="http://taekyung.me">Taekyung Kim</a>, and <a href="https://websites.umich.edu/~dpanagou/">Dimitra Panagou</a></span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                 <a href="https://drive.google.com/drive/u/3/folders/1VQXxh4Kgrt71ctP2AvmNddy4RNy58JZI"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- GitHub button removed -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="overview">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Overview</h2>
+        <div class="content has-text-justified">
+          <p>
+            Modern autonomous systems often rely on high-performance controllers and learned policies
+            that can fail under uncertainty, model mismatch, or distributional shift. While existing
+            safety filters can provide guarantees under idealized assumptions, many become overly
+            conservative, computationally intractable, or unsafe when the true disturbance distribution
+            differs from the nominal one.
+          </p>
+          <p>
+            This project introduces <strong>Distributionally Robust Stochastic gatekeeper (DRS-gatekeeper)</strong>,
+            a sampling-based safety filter designed to provide <strong>probabilistic safety guarantees for
+            nonlinear systems under arbitrary uncertainty structure and uncertain distributions</strong>.
+          </p>
+          <p>
+            Instead of enforcing safety through restrictive analytic assumptions or local approximations,
+            DRS-gatekeeper evaluates future system behavior through stochastic rollouts and computes a safe
+            switching time between a <strong>high-performance nominal policy</strong> and a
+            <strong>pre-certified backup policy</strong>.
+          </p>
+          <p>
+            The method explicitly accounts for distribution shift using Wasserstein ambiguity sets,
+            enabling robust safety guarantees even when observed disturbances differ from the true
+            underlying environment.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="videos">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Simulation Videos</h2>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h3 class="title is-4">Formula 1 Racecar</h3>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column has-text-centered">
+        <p><strong>MPPI</strong></p>
+        <img src="https://github.com/user-attachments/assets/53153f02-e6bb-4efa-af1d-6f0d17105df3"
+             alt="Formula 1 racecar MPPI result" style="max-width: 100%;">
+      </div>
+      <div class="column has-text-centered">
+        <p><strong>DRS-gatekeeper</strong></p>
+        <img src="https://github.com/user-attachments/assets/30c0d701-5119-4edb-b5e3-b4f55c6b385f"
+             alt="Formula 1 racecar DRS-gatekeeper result" style="max-width: 100%;">
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h3 class="title is-4">F-16 Fighter Jet</h3>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column has-text-centered">
+          <p><strong>Nominal</strong></p>
+          <img src="https://github.com/user-attachments/assets/b4079060-063b-4e5d-a4cf-fd5d485151fd"
+               alt="F-16 fighter jet nominal result" style="max-width: 100%;">
+      </div>
+      <div class="column has-text-centered">
+          <p><strong>DRS-gatekeeper</strong></p>
+          <img src="https://github.com/user-attachments/assets/a12c7288-fe20-4a75-8443-38ae7217d6c9"
+               alt="F-16 fighter jet DRS-gatekeeper result" style="max-width: 100%;">
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h3 class="title is-4">Dubins Vehicle</h3>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h4 class="title is-5">β = 0.01</h4>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column has-text-centered">
+        <p><strong>DR-CBF Baseline</strong></p>
+        <img src="./static/animations/simple/beta_01/cbf_baseline.gif"
+             alt="Dubins vehicle DR-CBF baseline β=0.01" style="max-width: 100%;">
+      </div>
+      <div class="column has-text-centered">
+        <p><strong>DRS-gatekeeper</strong></p>
+        <img src="./static/animations/simple/beta_01/gatekeeper_rollouts.gif"
+             alt="Dubins vehicle DRS-gatekeeper β=0.01" style="max-width: 100%;">
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h4 class="title is-5">β = 0.05</h4>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column has-text-centered">
+        <p><strong>DR-CBF Baseline</strong></p>
+        <img src="./static/animations/simple/beta_05/cbf_baseline.gif"
+             alt="Dubins vehicle DR-CBF baseline β=0.05" style="max-width: 100%;">
+      </div>
+      <div class="column has-text-centered">
+        <p><strong>DRS-gatekeeper</strong></p>
+        <img src="./static/animations/simple/beta_05/gatekeeper_rollouts.gif"
+             alt="Dubins vehicle DRS-gatekeeper β=0.05" style="max-width: 100%;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 has-text-centered">Key Features</h2>
+        <div class="content">
+          <ul>
+            <li><strong>Distributionally Robust Safety:</strong> Handles uncertainty beyond the empirical data distribution using Wasserstein ambiguity sets.</li>
+            <li><strong>Sampling-Based Verification:</strong> Avoids expensive nonlinear optimization and supports arbitrary nonlinear dynamics.</li>
+            <li><strong>Minimal Intervention:</strong> Allows the nominal controller to operate whenever safely possible.</li>
+            <li><strong>Scalable to Complex Systems:</strong> Applicable to high-dimensional systems including autonomous racing and aircraft control.</li>
+            <li><strong>Provable Guarantees:</strong> Provides probabilistic safety guarantees with finite-sample confidence bounds.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 has-text-centered">Method Summary</h2>
+        <div class="content has-text-justified">
+          <p>At every control step, DRS-gatekeeper:</p>
+          <ol>
+            <li>Samples stochastic future rollouts under uncertainty.</li>
+            <li>Evaluates candidate switching times between the nominal and backup controller.</li>
+            <li>Estimates worst-case failure probabilities under distributional ambiguity.</li>
+            <li>Selects the latest safe switching time that satisfies the desired safety level.</li>
+          </ol>
+          <p>This enables the system to remain both <strong>safe under uncertainty</strong> and <strong>high-performance whenever possible</strong>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="environments">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3 has-text-centered">Simulation Environments</h2>
+      </div>
+    </div>
+
+    <div class="columns is-multiline">
+      <div class="column is-full">
+        <div class="box">
+          <h3 class="title is-4">Formula 1 Racecar</h3>
+          <div class="content">
+            <p>High-speed autonomous racing under empirical disturbances and perception noise.</p>
+            <ul>
+              <li>Nominal policy: uses Model Predictive Path Integral (MPPI) from <a href="https://ieeexplore.ieee.org/document/8558663">this paper</a>.</li>
+              <li>The uncertainty arises from noisy perception of distance to track boundaries.</li>
+              <li>The nominal vehicle model used by the planner differs from unknown true vehicle dynamics obtained from <a href="https://assetto-corsa-gym.github.io/">Assetto Corsa Gym</a>.</li>
+              <li>A distributional shift arises because DRS-gatekeeper does not explicitly account for perception noise and relies on approximate vehicle dynamics.</li>
+            </ul>
+            
+            <h4 class="title is-5" style="margin-top: 1.5rem;">Vehicle Model</h4>
+            <p>We consider a Dallara F317 racing car with state:</p>
+            $$x_t = [p^x_t, p^y_t, \psi_t, v^x_t, v^y_t, r_t, q_t]^\top$$
+            <p>where \((p^x_t, p^y_t)\) and \(\psi_t\) denote global position and heading, \((v^x_t, v^y_t)\) are body-frame velocities, \(r_t\) is the yaw rate, and \(q_t\) is the steering angle. The control input is:</p>
+            $$u_t = [ a_{\text{th},t}, a_{\text{br},t},q_{\text{cmd},t}]^\top$$
+            <p>with throttle \(0\leq a_{\text{th},t}\leq a_{\max}=12.0\), braking \(0\leq a_{\text{br},t}\leq a_{\text{br,max}}=18.0\), and steering commands \(|q_{\text{cmd},t}|\leq q_{\max}=0.32\).</p>
+            
+            <h4 class="title is-5">Discrete-Time Bicycle Dynamics</h4>
+            <p>We model the car's dynamics using the discrete-time bicycle dynamics \(x_{t+1} = f(x_t, u_t)\) as:</p>
+            $$x_{t+1} = x_t + \Delta t \underbrace{\begin{bmatrix}
+            \bar{v}^x_t \cos \psi_t - \bar{v}^y_t \sin \psi_t \\
+            \bar{v}^x_t \sin \psi_t + \bar{v}^y_t \cos \psi_t \\
+            \bar{r}_t \\
+            a_{\text{long},t} + v^y_t r_t \\
+            \frac{1}{m}(F_{yf} \cos q_t + F_{yr}) - v^x_t r_t \\
+            \frac{1}{I_z}(l_f F_{yf} \cos q_t - l_r F_{yr}) \\
+            k_{\delta}(q_{\text{cmd}, t} - q_{t})
+            \end{bmatrix}}_{\dot x_t}$$
+            <p>where \(\bar{v}^x_t, \bar{v}^y_t, \bar{r}_t\) are interval-averaged quantities for numerical stability, and \(\Delta t=0.05\) is the sampling time. The longitudinal acceleration is:</p>
+            $$a_{\text{long},t} = a_{\text{th},t} a_{\max} - a_{\text{br},t} a_{\text{br,max}} - \frac{C_d}{m} v^x_t |v^x_t|$$
+            <p>Lateral tire forces follow a linear model:</p>
+            $$F_{y,\{f,r\}} = C_{\{f,r\}} \alpha_{\{f,r\}}$$
+            <p>with slip angles:</p>
+            $$\alpha_f = q_t - \arctan\!\left(\frac{v^y_t + l_f r_t}{v^x_t}\right) \quad \text{and} \quad \alpha_r = -\arctan\!\left(\frac{v^y_t - l_r r_t}{v^x_t}\right)$$
+            
+            <h4 class="title is-5">Model Identification and Uncertainty</h4>
+            <p>To identify model parameters, we use a dataset of offline laps on the \(4.657 \, \mathrm{km}\) Barcelona-Catalunya GP circuit obtained from simulation data, where data were collected using Assetto Corsa. Model uncertainty is quantified via one-step prediction residuals against ground-truth telemetry:</p>
+            $$\begin{align}
+            \delta v^x_t &= v^x_{t+1,\text{gt}} - (v^x_t + \dot{v}^x_t \Delta t), \\
+            \delta v^y_t &= v^y_{t+1,\text{gt}} - (v^y_t + \dot{v}^y_t \Delta t), \\
+            \delta r_t &= r_{t+1,\text{gt}} - (r_t + \dot{r}_t \Delta t).
+            \end{align}$$
+
+            <div class="has-text-centered" style="margin-top: 1.5rem;">
+              <img src="https://github.com/user-attachments/assets/3dd3b165-ab5d-4b9a-ad8b-e06a1a6c9926"
+                   alt="Formula 1 racecar model identification and uncertainty" style="max-width: 100%;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-full">
+        <div class="box">
+          <h3 class="title is-4">F-16 Fighter Jet</h3>
+          <div class="content">
+            <p>We consider an F-16 aircraft with state</p>
+            $$x_t = [p^N_t, p^E_t, h_t, u_t, v_t, w_t, p_t, q_t, r_t, \phi_t, \theta_t, \psi_t]^\top,$$
+            <p>where \((p^N_t, p^E_t, h_t)\) and \((\phi_t,\theta_t,\psi_t)\) denote inertial position and Euler attitude, \((u_t,v_t,w_t)\) are body-frame velocities, and \((p_t,q_t,r_t)\) are body angular rates. The control input is</p>
+            $$u_t = [\delta_{A,t}, \delta_{E,t}, \delta_{R,t}, \delta_{T,t}]^\top,$$
+            <p>with aileron, elevator, rudder, and throttle commands. Note that \(\delta\), \(\alpha\), and \(\beta\) in the F-16 dynamics denote control inputs, angle of attack, and sideslip angle, and are distinct from DRS-gatekeeper parameters.</p>
+
+            <p>We model the aircraft dynamics using a discrete-time rigid-body model \(x_{t+1} = f(x_t, u_t)\) as</p>
+            $$x_{t+1} = x_t + \Delta t \underbrace{\begin{bmatrix}
+            \dot p^N_t \\
+            \dot p^E_t \\
+            \dot h_t \\
+            X_t + r_t v_t - q_t w_t - g \sin\theta_t \\
+            Y_t + p_t w_t - r_t u_t + g \sin\phi_t \cos\theta_t \\
+            Z_t + q_t u_t - p_t v_t + g \cos\phi_t \cos\theta_t \\
+            \dot p_t \\
+            \dot q_t \\
+            \dot r_t \\
+            p_t + q_t \sin\phi_t \tan\theta_t + r_t \cos\phi_t \tan\theta_t \\
+            q_t \cos\phi_t - r_t \sin\phi_t \\
+            \frac{q_t \sin\phi_t + r_t \cos\phi_t}{\cos\theta_t}
+            \end{bmatrix}}_{\dot x_t}$$
+
+            <p>where \(\Delta t=\frac{1}{30}\) is the sampling time and \(g=32.174\,\mathrm{ft/s^2}\). The position kinematics are</p>
+            $$\dot p^N_t = u_t(c_{\theta_t}c_{\psi_t}) + v_t(s_{\phi_t}s_{\theta_t}c_{\psi_t} - c_{\phi_t}s_{\psi_t}) + w_t(c_{\phi_t}s_{\theta_t}c_{\psi_t} + s_{\phi_t}s_{\psi_t}),$$
+            $$\dot p^E_t = u_t(c_{\theta_t}s_{\psi_t}) + v_t(s_{\phi_t}s_{\theta_t}s_{\psi_t} + c_{\phi_t}c_{\psi_t}) + w_t(c_{\phi_t}s_{\theta_t}s_{\psi_t} - s_{\phi_t}c_{\psi_t}),$$
+            $$\dot h_t = u_t s_{\theta_t} - v_t s_{\phi_t}c_{\theta_t} - w_t c_{\phi_t}c_{\theta_t},$$
+            <p>with \(c_{(\cdot)}=\cos(\cdot)\) and \(s_{(\cdot)}=\sin(\cdot)\).</p>
+
+            <p>Aerodynamic coefficients are predicted via polynomial approximation</p>
+            $$[\hat C_{X,t},\hat C_{Y,t},\hat C_{Z,t},\hat C_{L,t},\hat C_{M,t},\hat C_{N,t}]
+            = \phi(\upsilon_t)^\top W + B,$$
+            <p>where</p>
+            $$\upsilon_t=[\alpha_t,\beta_t,\mathrm{Mach}_t,p_t,q_t,r_t,\delta_{e,t},\delta_{a,t},\delta_{r,t}]^\top,$$
+            <p>and \(\alpha_t=\arctan2(w_t,u_t), ~
+            \beta_t=\arcsin\!\left(\frac{v_t}{V_t}\right), ~
+            V_t=\sqrt{u_t^2+v_t^2+w_t^2}\). Using dynamic pressure \(q_{\infty,t}=\frac12\rho V_t^2\), wing area \(S\), span \(b\), mean chord \(\bar c\), and mass \(m\):</p>
+            $$X_t=q_{\infty,t}\frac{S}{m}\hat C_{X,t}+T(\delta_{t,t}),\quad
+            Y_t=q_{\infty,t}\frac{S}{m}\hat C_{Y,t},\quad
+            Z_t=q_{\infty,t}\frac{S}{m}\hat C_{Z,t},$$
+            $$L_t=q_{\infty,t}Sb\,\hat C_{L,t},\quad
+            M_t=q_{\infty,t}S\bar c\,\hat C_{M,t},\quad
+            N_t=q_{\infty,t}Sb\,\hat C_{N,t},$$
+            <p>and angular accelerations satisfy</p>
+            $$\dot\omega_t = I^{-1}\!\left(\begin{bmatrix}L_t\\M_t\\N_t\end{bmatrix} - \omega_t \times (I\omega_t)\right),\qquad
+            \omega_t=[p_t,q_t,r_t]^\top.$$
+            <p>Control inputs are normalized and bounded by \(\delta_{a,t},\delta_{e,t},\delta_{r,t}\in[-1,1]\), \(\delta_{t,t}\in[0,1]\).</p>
+
+
+            <h4 class="title is-5" style="margin-top: 1.5rem;">Trajectory Generation</h4>
+            <p>Trajectory generation for the F-16 case study follows the optimization-based workflow described in <a href="https://github.com/peterdsharpe/air-racing-optimization/tree/master">air-racing-optimization</a>.</p>
+            <p> The canyon elevation data is obtained from an <a href="https://www.opentopography.org/">OpenTopography</a> USGS 10 m digital elevation model of <a href="https://en.wikipedia.org/wiki/Black_Canyon_of_the_Gunnison_National_Park">Black Canyon of the Gunnison National Park</a>.</p>
+            <h4 class="title is-5" style="margin-top: 1.5rem;">Polynomial Model Identification and Uncertainty Injection</h4>
+            <div class="has-text-centered">
+              <img src="https://github.com/user-attachments/assets/cd2c8906-3985-49d6-aea7-b588946076ce"
+                   alt="F-16 model identification and uncertainty" style="max-width: 100%;">
+            </div>
+
+            <p>The nominal aerodynamic model is identified from generated simulator data. Each rollout provides state, action, and next-state samples, which are converted into aerodynamic coefficient targets. A regularized polynomial regression is then fit from the selected flight and control features to the six aerodynamic coefficient channels:</p>
+            $$\mathbf{C}_{\mathrm{nom}}
+=
+\begin{bmatrix}
+C_X & C_Y & C_Z & C_L & C_M & C_N
+\end{bmatrix}^{\top}.$$
+
+            <p>After fitting the nominal polynomial model, residual coefficient errors are computed on the same generated dataset. Structured residual trends are removed using context-dependent calibration features, namely flight condition. The remaining centered residuals are stored as an empirical uncertainty model. During rollout, uncertainty samples are drawn from residuals observed in nearby historical contexts, so the injected uncertainty remains dependent on the current flight regime rather than being modeled as fixed Gaussian noise.</p>
+
+            <p>In the gatekeeper rollout, the sampled uncertainty enters directly in coefficient space. Let</p>
+            $$\mathbf{w}
+=
+\begin{bmatrix}
+w_{C_X} & w_{C_Y} & w_{C_Z} & w_{C_L} & w_{C_M} & w_{C_N}
+\end{bmatrix}^{\top}$$
+            <p>denote the sampled coefficient residual. The perturbed aerodynamic coefficients are</p>
+            $$\mathbf{C}
+=
+\mathbf{C}_{\mathrm{nom}} + \mathbf{w}.$$
+
+            <p>These perturbed coefficients are then converted into dimensional forces and moments:</p>
+            $$X = (C_X + w_{C_X})\frac{\bar q S}{m} + T(\delta_t),
+\qquad
+Y = (C_Y + w_{C_Y})\frac{\bar q S}{m},
+\qquad
+Z = (C_Z + w_{C_Z})\frac{\bar q S}{m},$$
+            $$L = (C_L + w_{C_L})\bar q S b,
+\qquad
+M = (C_M + w_{C_M})\bar q S \bar c,
+\qquad
+N = (C_N + w_{C_N})\bar q S b.$$
+
+            <p>Thus, uncertainty is injected before rigid-body propagation by perturbing the aerodynamic coefficients, which then changes the body-axis force and moment channels used by the rollout dynamics.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-full">
+        <div class="box">
+          <h3 class="title is-4">Dubins Vehicle</h3>
+          <div class="content">
+            <p>Obstacle avoidance under uncertain actuation and model mismatch.</p>
+            <h4 class="title is-5" style="margin-top: 1.5rem;">Dubins Model</h4>
+            <p>We first introduce the Dubins model in continuous time with the state:</p>
+            $$x=\begin{bmatrix}
+                p_x & p_y & \theta & v
+            \end{bmatrix}^\top$$
+            <p>with the dynamics:</p>
+            $$\begin{align}
+            \dot{p}_x &= v \cos\theta & \quad \dot{p}_y &= v \sin\theta \\
+            \dot{\theta} &= (1 + \eta_\omega) u_\omega + v \xi_\omega & \quad \dot{v} &= (1 + \eta_a) u_a + v \xi_a
+            \end{align}$$
+            <p>The noise vector \(\mathbf{w}^f= [\xi_a, \xi_\omega, \eta_a, \eta_\omega]^T\) depicts model mismatch and actuator gain error with a Gaussian mixture model as the true noise distribution, from which limited empirical noise samples are available. The constrained inputs are acceleration \(u_a \in [-5.0, 5.0]\) and turn rate \(u_\omega \in [-\frac{\pi}{4}, \frac{\pi}{4}]\). A lower bound on velocity is enforced in the dynamics such that \(v \ge 10.0\), which prevents the vehicle from stopping.</p>
+
+            <h4 class="title is-5" style="margin-top: 1.5rem;">Uncertainty Model</h4>
+            <p>The uncertainty vector \(w=[\xi_a,\xi_w,\eta_a,\eta_w]\) is generated from a two-component Gaussian mixture:</p>
+            $$w \sim 0.8\,\mathcal{N}\!\left(\mu_{\mathrm{nom}},\operatorname{diag}(\sigma_{\mathrm{nom}}^2)\right)
+\;+
+\;0.2\,\mathcal{N}\!\left(\mu_{\mathrm{out}},\operatorname{diag}(\sigma_{\mathrm{out}}^2)\right),$$
+            <p>with \(\mu_{\mathrm{nom}}=[0,0,0,0]\), \(\sigma_{\mathrm{nom}}=[0.05,0.02,0.03,0.03]\), \(\mu_{\mathrm{out}}=[-0.15,\,0.08,\,-0.10,\,0.05]\), and \(\sigma_{\mathrm{out}}=[0.02,0.01,0.05,0.05]\). A finite offline dataset (default size \(5000\)) is first sampled i.i.d. from this mixture, and the simulation then draws disturbances by uniform resampling with replacement from that dataset, i.e., from its empirical distribution \(\hat P=\frac{1}{5000}\sum_{i=1}^{5000}\delta_{w^{(i)}}\).</p>
+
+            <h4 class="title is-5">Safety Constraint and CBF</h4>
+            <p>The safety constraint is to avoid two static circular obstacles with centers \((p^i_x, p^i_y)\) and radii \(R_i\), \(i=1,2\). This defines the safe set:</p>
+            $$\mathcal{S} = \left\{x \in \mathbb{R}^4 \mid h(x) = \min_{i\in\{1,2\}}\left((p_x - p^i_x)^2 + (p_y - p^i_y)^2 - R_i^2\right) > 0\right\}$$
+            <p>Since the system has relative degree two with respect to the safety constraint, a higher-order CBF (HOCBF) is required. The intermediate barrier function is defined as \(h_e(x) = \dot{h}(x) + \alpha_1 h(x)\) with \(\alpha_1 > 0\). The DR-CBF method enforces the control barrier condition over a Wasserstein ambiguity set \(\mathcal{M}_N^r\) centered on the empirical distribution of offline disturbance samples:</p>
+            $$\inf_{\mathbb{P} \in \mathcal{M}_N^r} \mathbb{P} \left( \dot{h}_e(x, u, \mathbf{w}^f) + \alpha_2 h_e(x) \ge 0 \right) \ge 1 - \varepsilon$$
+
+            <h4 class="title is-5">Implementation and Control</h4>
+            <p>For implementation, we discretize the continuous-time dynamics with Euler's method with \(\Delta t = 0.05\). The nominal controller for both DRS-gatekeeper and the DR-CBF produces a turn rate command proportional to the heading error to the goal and an acceleration command proportional to the target velocity error. For the backup controller in DRS-gatekeeper, we employ an orbit controller that slows the vehicle to its minimum speed and turns away from the nearest obstacle at the maximum yaw rate, entering an orbit.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="code">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3">Code</h2>
+    <p>The codebase will be released publicly upon acceptance of the paper.</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <p>Website template borrowed from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
