@@ -128,7 +128,7 @@ $$
 p_{x,k+1} &= p_{x,k}+\Delta t\,v_k\cos\theta_k,\\
 p_{y,k+1} &= p_{y,k}+\Delta t\,v_k\sin\theta_k,\\
 \theta_{k+1} &= \theta_k+\Delta t\big((1+\eta_{\omega,k})\omega_k+v_k\xi_{\omega,k}\big),\\
-v_{k+1} &= \operatorname{clip}\!\left(v_k+\Delta t\big((1+\eta_{a,k})a_k+v_k\xi_{a,k}\big),9,20\right).
+v_{k+1} &= \mathrm{clip}\!\left(v_k+\Delta t\big((1+\eta_{a,k})a_k+v_k\xi_{a,k}\big),9,20\right).
 \end{aligned}
 $$
 
@@ -137,8 +137,8 @@ The nominal goal policy uses proportional velocity and heading errors, with gain
 The offline disturbance data set is sampled from the two-component Gaussian mixture
 
 $$
-w\sim 0.8\,\mathcal N(\mu_{\rm nom},\operatorname{diag}(\sigma_{\rm nom}^2))
- +0.2\,\mathcal N(\mu_{\rm out},\operatorname{diag}(\sigma_{\rm out}^2)),
+w\sim 0.8\,\mathcal N(\mu_{\rm nom},\mathrm{diag}(\sigma_{\rm nom}^2))
+ +0.2\,\mathcal N(\mu_{\rm out},\mathrm{diag}(\sigma_{\rm out}^2)),
 $$
 
 with
@@ -165,10 +165,10 @@ $$
 For a `T`-step sequence under the flattened Euclidean metric, the per-step displacement is $\beta/\sqrt{T}$:
 
 $$
-\operatorname{vec}(W^{\rm true})
- =\operatorname{vec}(W)+\frac{\beta}{\sqrt{T}}[d,\ldots,d],
+\mathrm{vec}(W^{\rm true})
+ =\mathrm{vec}(W)+\frac{\beta}{\sqrt{T}}[d,\ldots,d],
 \qquad
-\left\lVert\operatorname{vec}(W^{\rm true})-\operatorname{vec}(W)\right\rVert_2=\beta.
+\left\lVert\mathrm{vec}(W^{\rm true})-\mathrm{vec}(W)\right\rVert_2=\beta.
 $$
 
 The coupling is used to generate the realized process sequence; predictive rollouts continue to use empirical samples unless a controller description below says otherwise.
@@ -194,7 +194,7 @@ $$
 The distribution-shift buffer used by the implementation is $b_\beta=L_H\beta^{1/p}$ with `p=1` in the runner. A sampled rollout counts as a buffered failure when $H_T\le b_\beta$. If $k_s$ of `N` samples fail, the candidate's Clopper–Pearson upper bound is
 
 $$
-\bar q_s=\operatorname{Beta}^{-1}(1-\rho;k_s+1,N-k_s),
+\bar q_s=\mathrm{Beta}^{-1}(1-\rho;k_s+1,N-k_s),
 \qquad
 \rho=1-(1-\delta)^{1/M}.
 $$
@@ -255,12 +255,12 @@ For a disturbance sample $w_i$, the implemented barrier expression is
 
 $$
 \begin{aligned}
-\operatorname{CBC}(u,w_i)={}&Aa+B\omega+Av\xi_{a,i}+Bv\xi_{\omega,i}\\
+\mathrm{CBC}(u,w_i)={}&Aa+B\omega+Av\xi_{a,i}+Bv\xi_{\omega,i}\\
 &+Aa\eta_{a,i}+B\omega\eta_{\omega,i}+C+\alpha_2h_e,
 \end{aligned}
 $$
 
-with $G_i=-\operatorname{CBC}(u,w_i)$. The convex filter minimizes
+with $G_i=-\mathrm{CBC}(u,w_i)$. The convex filter minimizes
 
 $$
 \min_{u,y,t,s,\alpha_2}\;y+|\alpha_2|,
@@ -301,7 +301,7 @@ At each receding-horizon solve, sampled errors, support-based tightening, and th
 
 $$
 \sup_{Q\in\mathcal B_W(\hat P,\varepsilon_{\rm MPC})}
-\operatorname{CVaR}_{1-\gamma}\!\left[\max_j(a_j^\top x_k+b_j)\right]\le0
+\mathrm{CVaR}_{1-\gamma}\!\left[\max_j(a_j^\top x_k+b_j)\right]\le0
 $$
 
 are combined with the linearized dynamics. The objective is the quadratic tracking cost
