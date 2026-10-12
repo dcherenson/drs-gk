@@ -1,0 +1,30 @@
+[project]
+name = "drs-gk"
+version = "0.1.0"
+description = "Distributionally robust stochastic gatekeeper and baseline controller comparisons"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "cvxpy>=1.7.2",
+    "jax>=0.10.2",
+    "matplotlib>=3.10.8",
+    "numpy>=2.4.4",
+    "pillow>=12.0.0",
+    "scipy>=1.17.0",
+]
+
+[build-system]
+requires = ["setuptools>=80"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["config", "helper", "main", "pcis", "visualization"]
+
+[tool.setuptools.packages.find]
+include = ["controller*", "experiments*"]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["F"]
