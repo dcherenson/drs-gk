@@ -128,7 +128,7 @@ $$
 p_{x,k+1} &= p_{x,k}+\Delta t\,v_k\cos\theta_k,\\
 p_{y,k+1} &= p_{y,k}+\Delta t\,v_k\sin\theta_k,\\
 \theta_{k+1} &= \theta_k+\Delta t\big((1+\eta_{\omega,k})\omega_k+v_k\xi_{\omega,k}\big),\\
-v_{k+1} &= \mathrm{clip}\!\left(v_k+\Delta t\big((1+\eta_{a,k})a_k+v_k\xi_{a,k}\big),9,20\right).
+v_{k+1} &= \mathrm{clip}\!(v_k+\Delta t\big((1+\eta_{a,k})a_k+v_k\xi_{a,k}\big),9,20).
 \end{aligned}
 $$
 
@@ -168,7 +168,7 @@ $$
 \mathrm{vec}(W^{\rm true})
  =\mathrm{vec}(W)+\frac{\beta}{\sqrt{T}}[d,\ldots,d],
 \qquad
-\left\lVert\mathrm{vec}(W^{\rm true})-\mathrm{vec}(W)\right\rVert_2=\beta.
+\lVert\mathrm{vec}(W^{\rm true})-\mathrm{vec}(W)\rVert_2=\beta.
 $$
 
 The coupling is used to generate the realized process sequence; predictive rollouts continue to use empirical samples unless a controller description below says otherwise.
@@ -180,7 +180,7 @@ The coupling is used to generate the realized process sequence; predictive rollo
 DRS-GK evaluates candidate switch times $s\in\{0,\ldots,M-1\}$. A rollout uses the nominal policy before $s$ and the backup policy from $s$ onward. Its safety margin is
 
 $$
-H_T(x,s,W)=\min\left\{\min_{1\le k\le T} c(x_k),\ h_{\rm PCIS}(x_T)\right\},
+H_T(x,s,W)=\min\{\min_{1\le k\le T} c(x_k),\ h_{\rm PCIS}(x_T)\},
 \qquad
 c(x)=\min_i(\lVert p-c_i\rVert_2-R_i),
 $$
@@ -214,10 +214,10 @@ and selects the latest accepted switch time to preserve nominal-policy use. `L_H
 The deterministic Gatekeeper uses the same candidate switch-time idea and shared nominal/backup policies. It rolls out each candidate with zero predictive disturbance. If $c_{\rm orbit}(x_T)$ is the loiter-center position computed from the terminal state, its implemented margin is:
 
 $$
-H_T^{\rm det}(x,s)=\min\left\{
+H_T^{\rm det}(x,s)=\min\{
 \min_{0\le k<T,\,i}\big(\lVert p_k-c_i\rVert_2-R_i\big),
 \min_i\big(\lVert c_{\rm orbit}(x_T)-c_i\rVert_2-v_T/W_{\max}-R_i\big)
-\right\}.
+\}.
 $$
 
 It selects the largest candidate with $H_T^{\rm det}\ge0$. The closed-loop simulator still applies the configured realized disturbance sequence when propagating the selected action.
@@ -229,7 +229,7 @@ SMPS performs a recoverability test at the current state. Its statistical sample
 $$
 \varepsilon_t=\frac{6\varepsilon}{(t+1)^2\pi^2},\qquad
 \delta_t=\frac{6\delta}{(t+1)^2\pi^2},\qquad
-K_t=\left\lceil\frac{\log(1/\delta_t)}{\log(1/(1-\varepsilon_t))}\right\rceil.
+K_t=\lceil\frac{\log(1/\delta_t)}{\log(1/(1-\varepsilon_t))}\rceil.
 $$
 
 In `execute_smps`, the current-step test evaluates this helper with `t=0` and samples `K` empirical disturbance trajectories. It uses the nominal action only when every sampled rollout has $H_T\ge0$; otherwise it applies the shared backup action for that step. SMPS makes this decision again at the next step rather than retaining a future switch time.
@@ -273,7 +273,7 @@ $$
 \beta L+\frac1N\sum_i s_i-t\varepsilon\le0,
 \quad s_i\ge G_i+t,
 \quad s_i\ge0,
-\quad y+1\ge\left\lVert[2(u-u_{\rm nom}),y-1]\right\rVert_2,
+\quad y+1\ge\lVert[2(u-u_{\rm nom}),y-1]\rVert_2,
 $$
 
 where $L=\lVert[Av,Bv,Aa,B\omega]\rVert_2$, plus acceleration and yaw-rate bounds. Thus the second barrier gain is a nonnegative optimization variable in the objective, while `alpha1`, `epsilon`, `beta`, and the sample count remain configuration values.
@@ -301,13 +301,13 @@ At each receding-horizon solve, sampled errors, support-based tightening, and th
 
 $$
 \sup_{Q\in\mathcal B_W(\hat P,\varepsilon_{\rm MPC})}
-\mathrm{CVaR}_{1-\gamma}\!\left[\max_j(a_j^\top x_k+b_j)\right]\le0
+\mathrm{CVaR}_{1-\gamma}\![\max_j(a_j^\top x_k+b_j)]\le0
 $$
 
 are combined with the linearized dynamics. The objective is the quadratic tracking cost
 
 $$
-\sum_{k=0}^{H-1}\left(\lVert z_k-x_g\rVert_Q^2+\lVert\nu_k\rVert_R^2\right)
+\sum_{k=0}^{H-1}(\lVert z_k-x_g\rVert_Q^2+\lVert\nu_k\rVert_R^2)
  +\lVert z_H-x_g\rVert_{Q_f}^2.
 $$
 
